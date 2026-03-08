@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AI脳 思考回路の使い方｜第1話 Lv1 アーカイブ視聴</title>
+<meta property="og:title" content="AI脳 思考回路の使い方｜第1話 Lv1">
+<meta property="og:description" content="AIを使いこなす思考回路を、第1話から体験しよう。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-deep: #050a1a;
+  --navy-mid: #0a1535;
+  --navy-bright: #0d2060;
+  --blue-cosmos: #1a3a8f;
+  --blue-light: #4a80f5;
+  --blue-glow: #7eb8ff;
+  --gold: #f5c842;
+  --gold-light: #ffe080;
+  --gold-dim: #c9a020;
+  --orange-cta: #ff7c2a;
+  --orange-warm: #ff9a4a;
+  --white: #ffffff;
+  --white-80: rgba(255,255,255,0.8);
+  --white-60: rgba(255,255,255,0.6);
+  --white-30: rgba(255,255,255,0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 40px; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ===== STARFIELD ===== */
+#starfield {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: var(--min-op, 0.2); transform: scale(1); }
+  50% { opacity: var(--max-op, 0.9); transform: scale(1.3); }
+}
+
+/* ===== PARTICLE STREAM ===== */
+.particle-stream {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: drift linear infinite;
+  opacity: 0;
+}
+
+@keyframes drift {
+  0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-10vh) translateX(var(--drift, 20px)) scale(1.5); opacity: 0; }
+}
+
+/* ===== LAYOUT ===== */
+section {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 64px 20px;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 20px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(74,128,245,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  background: rgba(245,200,66,0.1);
+  border: 1px solid rgba(245,200,66,0.4);
+  border-radius: 40px;
+  padding: 6px 20px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-title-sub {
+  font-size: clamp(13px, 3.5vw, 16px);
+  color: var(--blue-glow);
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  font-weight: 400;
+  animation: fadeUp 0.9s ease 0.1s both;
+}
+
+.hero-title-main {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(26px, 7vw, 48px);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+  animation: fadeUp 1s ease 0.2s both;
+  background: linear-gradient(135deg, #ffffff 0%, #7eb8ff 50%, #f5c842 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-episode {
+  font-size: clamp(14px, 4vw, 18px);
+  color: var(--white-80);
+  margin-bottom: 32px;
+  animation: fadeUp 1s ease 0.3s both;
+}
+
+.hero-episode span {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.hero-tagline {
+  font-size: clamp(13px, 3.5vw, 15px);
+  color: var(--white-60);
+  margin-bottom: 44px;
+  animation: fadeUp 1s ease 0.4s both;
+}
+
+.hero-cta {
+  animation: fadeUp 1s ease 0.5s both;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff7c2a, #ffb347, #ff7c2a);
+  background-size: 200% 100%;
+  color: white;
+  font-size: clamp(15px, 4vw, 17px);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 16px 40px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 30px rgba(255,124,42,0.5), 0 0 60px rgba(255,124,42,0.2);
+  transition: all 0.3s ease;
+  animation: pulseCTA 2.5s ease-in-out infinite;
+  min-height: 54px;
+  letter-spacing: 0.05em;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 40px rgba(255,124,42,0.7), 0 0 80px rgba(255,124,42,0.3);
+  background-position: right center;
+}
+
+@keyframes pulseCTA {
+  0%, 100% { box-shadow: 0 4px 30px rgba(255,124,42,0.5), 0 0 60px rgba(255,124,42,0.2); }
+  50% { box-shadow: 0 4px 40px rgba(255,124,42,0.8), 0 0 80px rgba(255,124,42,0.35); }
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--white-30);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  animation: fadeIn 2s ease 1.5s both;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid rgba(255,255,255,0.3);
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  transform: rotate(45deg);
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(45deg) translateY(4px); }
+}
+
+/* ===== VIDEO SECTION ===== */
+#video-area {
+  background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 50%, var(--navy-deep) 100%);
+  padding-top: 40px;
+}
+
+.section-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-size: clamp(20px, 5.5vw, 28px);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.video-intro {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(126,184,255,0.2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: var(--white-80);
+  line-height: 1.8;
+}
+
+.video-intro .point {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.video-intro .point:last-child { margin-bottom: 0; }
+
+.point-icon {
+  color: var(--gold);
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.video-wrapper {
+  position: relative;
+  background: rgba(10,21,53,0.9);
+  border: 1px solid rgba(74,128,245,0.3);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(74,128,245,0.2), inset 0 0 40px rgba(0,0,0,0.5);
+  margin-bottom: 14px;
+}
+
+.video-aspect {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.video-aspect iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+.video-placeholder {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a1535, #0d2060);
+  color: var(--white-60);
+  font-size: 14px;
+  gap: 12px;
+}
+
+.play-icon-big {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(255,124,42,0.2);
+  border: 2px solid rgba(255,124,42,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.video-alt-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--blue-glow);
+  opacity: 0.8;
+}
+
+.video-alt-link a {
+  color: var(--blue-glow);
+  text-decoration: underline;
+}
+
+/* ===== BENEFIT ===== */
+#benefit {
+  position: relative;
+}
+
+#benefit::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 80px;
+  background: linear-gradient(180deg, transparent, rgba(126,184,255,0.4), transparent);
+}
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.benefit-card {
+  background: linear-gradient(135deg, rgba(13,32,96,0.6), rgba(10,21,53,0.8));
+  border: 1px solid rgba(74,128,245,0.25);
+  border-radius: 16px;
+  padding: 24px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--gold), transparent);
+}
+
+.benefit-card:hover {
+  border-color: rgba(74,128,245,0.5);
+  transform: translateX(4px);
+  box-shadow: 0 4px 30px rgba(74,128,245,0.15);
+}
+
+.benefit-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--gold);
+  opacity: 0.7;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 36px;
+}
+
+.benefit-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.benefit-content p {
+  font-size: 13px;
+  color: var(--white-60);
+  line-height: 1.7;
+}
+
+/* ===== TARGET ===== */
+#target {
+  background: linear-gradient(135deg, rgba(13,32,96,0.3), transparent);
+}
+
+.target-list {
+  list-style: none;
+  margin: 28px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.target-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: var(--white-80);
+  line-height: 1.6;
+}
+
+.check-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(245,200,66,0.15);
+  border: 1.5px solid rgba(245,200,66,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--gold);
+}
+
+.target-nudge {
+  background: linear-gradient(135deg, rgba(255,124,42,0.1), rgba(255,180,80,0.08));
+  border: 1px solid rgba(255,124,42,0.3);
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: 14px;
+  color: var(--white-80);
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+/* ===== LEVEL MAP ===== */
+#level-map { text-align: center; }
+
+.level-intro {
+  font-size: 13px;
+  color: var(--white-60);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+
+.level-timeline {
+  position: relative;
+  padding-left: 36px;
+  text-align: left;
+  margin-top: 8px;
+}
+
+.level-timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 14px;
+  bottom: 14px;
+  width: 1.5px;
+  background: linear-gradient(180deg, var(--gold) 0%, rgba(245,200,66,0.3) 35%, rgba(255,255,255,0.06) 100%);
+}
+
+.lv-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding-bottom: 18px;
+  position: relative;
+}
+.lv-row:last-child { padding-bottom: 0; }
+
+.lv-dot {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
+  margin-left: -36px;
+  position: relative;
+  z-index: 1;
+}
+.lv-dot.active {
+  background: var(--gold);
+  color: #050a1a;
+  box-shadow: 0 0 0 4px rgba(212,168,67,.2);
+}
+.lv-dot.inactive {
+  background: rgba(10,21,53,0.95);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  color: var(--white-60);
+}
+
+.lv-card {
+  flex: 1;
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: border-color .2s ease;
+}
+.lv-card.active {
+  background: linear-gradient(135deg, rgba(13,32,96,0.9), rgba(26,58,143,0.7));
+  border: 1.5px solid rgba(212,168,67,.45);
+}
+.lv-card.inactive {
+  background: rgba(10,21,53,0.5);
+  border: 1px solid rgba(255,255,255,0.08);
+  opacity: 0.65;
+}
+
+.lv-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+.lv-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--white-60);
+}
+.lv-now {
+  font-size: 9px;
+  font-weight: 900;
+  background: var(--gold);
+  color: #050a1a;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.lv-theme {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.lv-card.active .lv-theme { color: var(--gold); }
+.lv-card.inactive .lv-theme { color: rgba(255,255,255,0.35); }
+
+.lv-name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+.lv-card.active .lv-name { color: #fff; }
+.lv-card.inactive .lv-name { color: var(--white-60); }
+
+.lv-desc {
+  font-size: 12px;
+  line-height: 1.75;
+}
+.lv-card.active .lv-desc { color: var(--white-60); }
+.lv-card.inactive .lv-desc { color: rgba(255,255,255,0.28); }
+
+/* ===== NEXT CTA ===== */
+#next-cta {
+  background: linear-gradient(180deg, var(--navy-deep), var(--navy-mid), var(--navy-deep));
+}
+
+.next-cta-card {
+  background: linear-gradient(135deg, rgba(13,32,96,0.7), rgba(10,21,53,0.9));
+  border: 1px solid rgba(74,128,245,0.3);
+  border-radius: 20px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+}
+
+.next-cta-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--blue-glow);
+}
+
+.info-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.info-label {
+  color: var(--gold);
+  font-weight: 700;
+  min-width: 70px;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.info-val {
+  color: var(--white-80);
+}
+
+.cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-secondary {
+  display: block;
+  text-align: center;
+  background: transparent;
+  color: var(--blue-glow);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 14px 24px;
+  border-radius: 50px;
+  border: 1px solid rgba(126,184,255,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-secondary:hover {
+  background: rgba(126,184,255,0.1);
+  border-color: rgba(126,184,255,0.7);
+}
+
+/* ===== FAQ ===== */
+#faq {
+  position: relative;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.faq-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.5;
+  transition: background 0.2s ease;
+}
+
+.faq-q:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.faq-q-text { flex: 1; }
+
+.faq-icon {
+  width: 24px; height: 24px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-a {
+  display: none;
+  padding: 0 20px 18px;
+  font-size: 14px;
+  color: var(--white-60);
+  line-height: 1.8;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 16px;
+}
+
+.faq-item.open .faq-a {
+  display: block;
+}
+
+/* ===== FOOTER CTA ===== */
+#footer-cta {
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+#footer-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px; height: 300px;
+  background: radial-gradient(ellipse, rgba(74,128,245,0.1) 0%, transparent 70%);
+}
+
+.footer-cta-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.footer-cta-title {
+  font-size: clamp(20px, 5.5vw, 28px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.footer-cta-sub {
+  font-size: 14px;
+  color: var(--white-60);
+  margin-bottom: 36px;
+}
+
+.footer-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.btn-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(6,199,85,0.15);
+  border: 1px solid rgba(6,199,85,0.4);
+  color: #4ee390;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 14px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 50px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.btn-line:hover {
+  background: rgba(6,199,85,0.25);
+  border-color: rgba(6,199,85,0.7);
+}
+
+.footer-bottom {
+  margin-top: 60px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.05em;
+}
+
+/* ===== DIVIDERS ===== */
+.section-divider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 16px 0 28px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== PC ADJUSTMENTS ===== */
+@media (min-width: 640px) {
+  section { padding: 80px 40px; }
+
+  .benefit-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-cta-group {
+    flex-direction: row;
+    max-width: 560px;
+    justify-content: center;
+  }
+
+  .btn-primary, .btn-line { flex: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- STARFIELD -->
+<div id="starfield"></div>
+
+<!-- PARTICLE STREAM -->
+<div class="particle-stream" id="particles"></div>
+
+<!-- 1. HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-badge">▶ LV1 ARCHIVE NOW OPEN</div>
+    <div class="hero-title-sub">AI脳 思考回路の使い方</div>
+    <h1 class="hero-title-main">第1話 Lv1<br>アーカイブ視聴</h1>
+    <p class="hero-episode">最初の一歩が、<span>次の世界をひらく</span></p>
+    <p class="hero-tagline">「AIって難しそう」が「使いこなせる」に変わる、最初の体験をここから。</p>
+    <div class="hero-cta">
+      <a href="#video-area" class="btn-primary">▶&nbsp; アーカイブを視聴する</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- 2. VIDEO AREA -->
+<section id="video-area">
+  <div class="container">
+    <div class="section-label">EPISODE 01 — ARCHIVE</div>
+    <h2 class="section-title">アーカイブを今すぐ視聴</h2>
+    <div class="video-intro">
+      <div class="point">
+        <span class="point-icon">★</span>
+        <span>視聴時間の目安：約70分。途中停止・再開OK。気になるところから観てもOK。</span>
+      </div>
+      <div class="point">
+        <span class="point-icon">★</span>
+        <span>資料は不要。スマホ1台で体験できます。メモがあるとより効果的。</span>
+      </div>
+      <div class="point">
+        <span class="point-icon">★</span>
+        <span>「なぜAIがうまく使えないのか」の正体が、この動画でわかります。</span>
+      </div>
+    </div>
+
+    <div class="video-wrapper">
+      <div class="video-aspect">
+        <!-- Vimeo埋め込み（VIDEO_IDを実際のIDに差し替えてください） -->
+        <div class="video-placeholder" id="video-placeholder" style="display:none">
+          <div class="play-icon-big">▶</div>
+          <p>動画準備中</p>
+          <p style="font-size:12px; opacity:0.6;">VIDEO_ID を設定するとここに表示されます</p>
+        </div>
+        <iframe
+          id="vimeo-player"
+          src="https://player.vimeo.com/video/1171421337?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;loop=1"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;"
+          title="アイトレ　Lv1">
+        </iframe>
+        <script src="https://player.vimeo.com/api/player.js"></script>
+      </div>
+    </div>
+
+    <p class="video-alt-link">
+      動画が再生されない場合：<a href="https://vimeo.com/1171421337?share=copy&fl=sv&fe=ci" target="_blank" rel="noopener">Vimeoで開く →</a>
+    </p>
+  </div>
+</section>
+
+<!-- 3. BENEFIT -->
+<section id="benefit">
+  <div class="container reveal">
+    <div class="section-label">WHAT YOU'LL GET</div>
+    <h2 class="section-title">Lv1で得られること</h2>
+    <div class="section-divider"></div>
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-num">01</div>
+        <div class="benefit-content">
+          <h3>AI活用の土台</h3>
+          <p>「なぜ思い通りに動かないのか」の本質から理解し、使いこなすための正しい基盤を築きます。</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">02</div>
+        <div class="benefit-content">
+          <h3>思考整理フレーム</h3>
+          <p>AI活用に必要な「整理する力」を体験。頭の中がスッキリ整理される感覚を実感できます。</p>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">03</div>
+        <div class="benefit-content">
+          <h3>次レベルへ進む準備</h3>
+          <p>Lv1完走後、Lv2以降で学ぶことの「意味」が自然にわかるようになります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. TARGET -->
+<section id="target">
+  <div class="container reveal">
+    <div class="section-label">IS THIS FOR YOU?</div>
+    <h2 class="section-title">こんな人におすすめ</h2>
+    <div class="section-divider"></div>
+    <ul class="target-list">
+      <li class="target-item">
+        <div class="check-icon">✓</div>
+        <span>AIは気になっているけど、何から始めたらいいかわからない</span>
+      </li>
+      <li class="target-item">
+        <div class="check-icon">✓</div>
+        <span>ChatGPTを使ってみたが、期待通りの答えが返ってこない</span>
+      </li>
+      <li class="target-item">
+        <div class="check-icon">✓</div>
+        <span>仕事や日常でAIをもっと役立てたいが方法がわからない</span>
+      </li>
+      <li class="target-item">
+        <div class="check-icon">✓</div>
+        <span>難しい専門知識より、すぐ使えるスキルを身につけたい</span>
+      </li>
+      <li class="target-item">
+        <div class="check-icon">✓</div>
+        <span>短時間で効率よくAI活用を学びたい</span>
+      </li>
+    </ul>
+    <div class="target-nudge">
+      💡 1つでも当てはまる方は、このままLv1をご視聴ください。<br>
+      最後まで観ることで、あなたのAI活用が根本から変わります。
+    </div>
+  </div>
+</section>
+
+<!-- 5. LEVEL MAP -->
+<section id="level-map">
+  <div class="container reveal">
+    <div class="section-label">学びのステップ</div>
+    <h2 class="section-title">4段階で<br>AI脳の土台をつくる</h2>
+    <div class="section-divider" style="margin: 16px auto 28px;"></div>
+    <p class="level-intro">Lv1〜4はすべて「AI脳の土台づくり」。<br>伝える・整える・確認する・設計する。この4つが揃って初めて、AIを自在に使いこなせる。</p>
+
+    <div class="level-timeline">
+
+      <div class="lv-row">
+        <div class="lv-dot active">1</div>
+        <div class="lv-card active">
+          <div class="lv-meta">
+            <span class="lv-num">LV.1</span>
+            <span class="lv-now">今ここ</span>
+            <span class="lv-theme">対話思考</span>
+          </div>
+          <div class="lv-name">AIへの「伝え方」を学ぶ</div>
+          <p class="lv-desc">AIがうまく動かない原因は「伝え方」にある。まずはAIと対話するための基本の型を体験する。</p>
+        </div>
+      </div>
+
+      <div class="lv-row">
+        <div class="lv-dot inactive">2</div>
+        <div class="lv-card inactive">
+          <div class="lv-meta">
+            <span class="lv-num">LV.2</span>
+            <span class="lv-theme">構造化思考</span>
+          </div>
+          <div class="lv-name">AIに渡す「段取り」を組む</div>
+          <p class="lv-desc">伝える内容を構造的に整理し、AIが動きやすい段取りを設計する。Lv1の対話力を土台にした応用。</p>
+        </div>
+      </div>
+
+      <div class="lv-row">
+        <div class="lv-dot inactive">3</div>
+        <div class="lv-card inactive">
+          <div class="lv-meta">
+            <span class="lv-num">LV.3</span>
+            <span class="lv-theme">ディレクション監督思考</span>
+          </div>
+          <div class="lv-name">AIの出力を「全体感」で見る</div>
+          <p class="lv-desc">AIが出してきた答えを俯瞰し、確認・修正できる目を養う。Lv2の構造化を使って全体を設計する力。</p>
+        </div>
+      </div>
+
+      <div class="lv-row">
+        <div class="lv-dot inactive">4</div>
+        <div class="lv-card inactive">
+          <div class="lv-meta">
+            <span class="lv-num">LV.4</span>
+            <span class="lv-theme">設計思考</span>
+          </div>
+          <div class="lv-name">AI活用を「設計」できる人になる</div>
+          <p class="lv-desc">Lv1〜3の思考を統合し、自分だけのAI活用スタイルを確立。周囲をリードする思考設計者へ。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 6. NEXT CTA -->
+<section id="next-cta">
+  <div class="container reveal">
+    <div class="section-label">NEXT STEP</div>
+    <h2 class="section-title">Lv1を観たら、次へ進もう</h2>
+    <div class="section-divider"></div>
+
+    <div class="next-cta-card">
+      <h3>▶ 第2回 AI脳トレスクール</h3>
+      <div class="info-row">
+        <div class="info-label">テーマ</div>
+        <div class="info-val">魔法の3つの箱（相手・目的・トーン）</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">開催日</div>
+        <div class="info-val">3月12日（木）20:00〜21:15</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">所要時間</div>
+        <div class="info-val">約75分</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">受講料</div>
+        <div class="info-val">¥3,300（税込）※3月限定価格</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">参加方法</div>
+        <div class="info-val">オンライン参加（後日アーカイブ対応）</div>
+      </div>
+    </div>
+
+    <div class="cta-group">
+      <a href="https://ai-20210564.myshopify.com/products/%E5%88%9D%E7%B4%9A%E8%AC%9B%E5%BA%A7%E8%B2%A9%E5%A3%B2%E5%86%85%E5%AE%B9" target="_blank" rel="noopener noreferrer" class="btn-primary" onclick="trackCTA('cta_lv2_click'); window.open(this.href,'_blank'); return false;">
+        第2回に申し込む →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FAQ -->
+<section id="faq">
+  <div class="container reveal">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">よくある質問</h2>
+    <div class="section-divider"></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">初心者でも理解できますか？</span>
+          <div class="faq-icon">＋</div>
+        </button>
+        <div class="faq-a">
+          はい、Lv1はAI完全初心者の方を想定して設計されています。専門用語は使わず、日常の言葉で「AI脳の使い方」を体験できる構成になっています。まずは気軽に視聴してみてください。
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">アーカイブ視聴期限はありますか？</span>
+          <div class="faq-icon">＋</div>
+        </button>
+        <div class="faq-a">
+          視聴期限については案内ページまたはLINEでご確認ください。期限が近づいた場合はLINEよりご連絡いたします。
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Lv2では何を学べますか？</span>
+          <div class="faq-icon">＋</div>
+        </button>
+        <div class="faq-a">
+          Lv2では「思考を言語化する力」を学びます。Lv1で掴んだ土台を使って、AIに意図を正確に伝えるフレームワークを体験します。Lv1完走後に自然と「次が知りたい」と感じていただける設計です。
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">参加費はかかりますか？</span>
+          <div class="faq-icon">＋</div>
+        </button>
+        <div class="faq-a">
+          Lv1アーカイブの視聴は無料です。Lv2以降の詳細な料金については、各案内ページよりご確認ください。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FOOTER CTA -->
+<section id="footer-cta">
+  <div class="container">
+    <div class="footer-cta-label">TAKE THE NEXT STEP</div>
+    <h2 class="footer-cta-title">次の世界が、あなたを待っている</h2>
+    <p class="footer-cta-sub">Lv1を観終わったら、ぜひLv2へ。LINEで最新情報もお届けします。</p>
+    <div class="footer-cta-group">
+      <a href="https://ai-20210564.myshopify.com/products/%E5%88%9D%E7%B4%9A%E8%AC%9B%E5%BA%A7%E8%B2%A9%E5%A3%B2%E5%86%85%E5%AE%B9" target="_blank" rel="noopener noreferrer" class="btn-primary" onclick="trackCTA('cta_lv2_click'); window.open(this.href,'_blank'); return false;">
+        第2回に申し込む →
+      </a>
+      <a href="https://lin.ee/ljrFASQ" target="_blank" rel="noopener noreferrer" class="btn-line" onclick="trackCTA('cta_line_click'); window.open(this.href,'_blank'); return false;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        友だち追加してLINEで案内を受け取る
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 AIトレ — AI脳 思考回路の使い方</p>
+  </div>
+</section>
+
+<script>
+// ===== STARFIELD =====
+(function() {
+  const sf = document.getElementById('starfield');
+  const count = window.innerWidth < 640 ? 80 : 150;
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      --dur:${Math.random()*4+2}s;
+      --delay:${Math.random()*5}s;
+      --min-op:${Math.random()*0.3+0.1};
+      --max-op:${Math.random()*0.5+0.5};
+    `;
+    sf.appendChild(s);
+  }
+})();
+
+// ===== PARTICLES =====
+(function() {
+  const pc = document.getElementById('particles');
+  const count = 12;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const hue = Math.random() > 0.5 ? '#f5c842' : '#7eb8ff';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*8+6}s;
+      animation-delay:${Math.random()*8}s;
+      --drift:${(Math.random()-0.5)*60}px;
+      background:${hue};
+      width:${Math.random()*3+1}px;
+      height:${Math.random()*3+1}px;
+    `;
+    pc.appendChild(p);
+  }
+})();
+
+// ===== SCROLL REVEAL =====
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// ===== FAQ =====
+function toggleFAQ(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ===== GA4 EVENT TRACKING =====
+function trackCTA(eventName) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', eventName);
+  }
+  console.log('Track:', eventName);
+}
+
+// ===== VIMEO PLAYER API (視聴進捗計測) =====
+// VIDEO_ID設定後に有効化してください
+/*
+const tag = document.createElement('script');
+tag.src = 'https://player.vimeo.com/api/player.js';
+document.head.appendChild(tag);
+
+tag.onload = function() {
+  const iframe = document.getElementById('vimeo-player');
+  if (!iframe) return;
+  const player = new Vimeo.Player(iframe);
+  let tracked = { 25: false, 50: false, 75: false, complete: false };
+
+  player.on('play', () => { if (typeof gtag !== 'undefined') gtag('event', 'video_play'); });
+  player.on('timeupdate', function(data) {
+    const pct = Math.round(data.percent * 100);
+    if (pct >= 25 && !tracked[25]) { tracked[25] = true; gtag('event', 'video_25'); }
+    if (pct >= 50 && !tracked[50]) { tracked[50] = true; gtag('event', 'video_50'); }
+    if (pct >= 75 && !tracked[75]) { tracked[75] = true; gtag('event', 'video_75'); }
+  });
+  player.on('ended', () => {
+    if (!tracked.complete) { tracked.complete = true; gtag('event', 'video_complete'); }
+  });
+};
+*/
+</script>
+
+</body>
+</html>
