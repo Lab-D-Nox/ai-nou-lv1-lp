@@ -850,6 +850,363 @@ section {
   transform: translateY(0);
 }
 
+/* ===== MOBILE FIRST OPTIMIZATIONS ===== */
+@media (max-width: 639px) {
+
+  /* ---- 全体レイアウト ---- */
+  section {
+    padding: 48px 16px;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0 4px;
+  }
+
+  /* ---- ヒーローセクション ---- */
+  #hero {
+    padding: 72px 16px 56px;
+    min-height: 100svh;
+  }
+
+  .hero-badge {
+    font-size: 10px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+    letter-spacing: 0.15em;
+  }
+
+  .hero-title-sub {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .hero-title-main {
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-episode {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .hero-tagline {
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 36px;
+    padding: 0 4px;
+  }
+
+  /* ---- ボタン共通 ---- */
+  .btn-primary {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    padding: 18px 24px;
+    min-height: 58px;
+    text-align: center;
+    border-radius: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-line {
+    display: flex;
+    width: 100%;
+    font-size: 15px;
+    padding: 16px 20px;
+    min-height: 56px;
+    border-radius: 14px;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    font-size: 14px;
+    padding: 16px 20px;
+    min-height: 54px;
+    border-radius: 14px;
+  }
+
+  /* ---- 動画セクション ---- */
+  #video-area {
+    padding-top: 32px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: clamp(18px, 5.5vw, 24px);
+    margin-bottom: 18px;
+    line-height: 1.45;
+  }
+
+  .video-intro {
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.75;
+    border-radius: 10px;
+  }
+
+  .video-intro .point {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .point-icon {
+    font-size: 14px;
+  }
+
+  .video-wrapper {
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+
+  .video-alt-link {
+    font-size: 12px;
+  }
+
+  /* ---- ベネフィット ---- */
+  .benefit-grid {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .benefit-card {
+    padding: 18px 16px;
+    border-radius: 12px;
+    gap: 12px;
+  }
+
+  .benefit-num {
+    font-size: 22px;
+    min-width: 30px;
+  }
+
+  .benefit-content h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  .benefit-content p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* ---- ターゲット ---- */
+  .target-list {
+    gap: 12px;
+    margin: 20px 0 18px;
+  }
+
+  .target-item {
+    font-size: 14px;
+    gap: 10px;
+    line-height: 1.65;
+  }
+
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .target-nudge {
+    font-size: 13px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    line-height: 1.75;
+  }
+
+  /* ---- レベルマップ ---- */
+  #level-map {
+    text-align: left;
+  }
+
+  #level-map .section-title {
+    text-align: left;
+  }
+
+  .level-intro {
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .level-timeline {
+    padding-left: 32px;
+  }
+
+  .lv-row {
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .lv-dot {
+    width: 22px;
+    height: 22px;
+    font-size: 9px;
+    margin-left: -32px;
+  }
+
+  .lv-card {
+    padding: 14px 14px;
+    border-radius: 10px;
+  }
+
+  .lv-meta {
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .lv-num {
+    font-size: 9px;
+  }
+
+  .lv-now {
+    font-size: 8px;
+    padding: 2px 6px;
+  }
+
+  .lv-theme {
+    font-size: 9px;
+  }
+
+  .lv-name {
+    font-size: 14px;
+    line-height: 1.45;
+    margin-bottom: 4px;
+  }
+
+  .lv-desc {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  /* ---- ネクストCTA ---- */
+  .next-cta-card {
+    padding: 20px 16px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+  }
+
+  .next-cta-card h3 {
+    font-size: 16px;
+    margin-bottom: 14px;
+    line-height: 1.45;
+  }
+
+  .info-row {
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 14px;
+  }
+
+  .info-label {
+    font-size: 11px;
+    min-width: auto;
+    color: var(--gold);
+    opacity: 0.85;
+  }
+
+  .info-val {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .cta-group {
+    gap: 10px;
+  }
+
+  /* ---- FAQ ---- */
+  .faq-list {
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .faq-q {
+    padding: 16px 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    gap: 10px;
+  }
+
+  .faq-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .faq-a {
+    padding: 0 16px 16px;
+    padding-top: 14px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  /* ---- フッターCTA ---- */
+  #footer-cta {
+    padding: 60px 16px;
+  }
+
+  .footer-cta-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    margin-bottom: 10px;
+  }
+
+  .footer-cta-title {
+    font-size: clamp(20px, 6vw, 26px);
+    margin-bottom: 10px;
+    line-height: 1.45;
+  }
+
+  .footer-cta-sub {
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 28px;
+    padding: 0 4px;
+  }
+
+  .footer-cta-group {
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    font-size: 10px;
+  }
+
+  /* ---- セクション区切り ---- */
+  .section-divider {
+    margin: 12px 0 22px;
+  }
+
+  /* ---- スクロールヒント ---- */
+  .hero-scroll-hint {
+    bottom: 20px;
+    font-size: 10px;
+  }
+
+  .scroll-arrow {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 /* ===== PC ADJUSTMENTS ===== */
 @media (min-width: 640px) {
   section { padding: 80px 40px; }
