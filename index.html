@@ -319,6 +319,39 @@ section {
   border: none;
 }
 
+/* ===== VIDEO OVERLAY PLAY BUTTON ===== */
+.video-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  cursor: pointer;
+  background: rgba(5, 10, 26, 0.55);
+  transition: opacity 0.4s ease;
+}
+
+.video-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.play-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 0 20px rgba(74,128,245,0.5));
+}
+
+.play-btn:hover {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 30px rgba(74,128,245,0.8));
+}
+
 .video-placeholder {
   position: absolute;
   top: 0; left: 0;
@@ -1294,7 +1327,7 @@ section {
         </div>
         <iframe
           id="vimeo-player"
-          src="https://player.vimeo.com/video/1171421337?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;loop=1"
+          src="https://player.vimeo.com/video/1171421337?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=0&amp;loop=0"
           frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
@@ -1302,6 +1335,15 @@ section {
           title="アイトレ　Lv1">
         </iframe>
         <script src="https://player.vimeo.com/api/player.js"></script>
+        <!-- 中央オーバーレイ再生ボタン -->
+        <div id="video-overlay" class="video-overlay">
+          <button id="play-btn" class="play-btn" aria-label="動画を再生">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="38" stroke="rgba(255,255,255,0.8)" stroke-width="3" fill="rgba(0,0,0,0.4)"/>
+              <polygon points="32,22 32,58 60,40" fill="rgba(255,255,255,0.9)"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1602,6 +1644,22 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 revealEls.forEach(el => observer.observe(el));
+
+// ===== VIDEO OVERLAY PLAY =====
+(function() {
+  const overlay = document.getElementById('video-overlay');
+  const playBtn = document.getElementById('play-btn');
+  const iframe = document.getElementById('vimeo-player');
+  if (!overlay || !iframe) return;
+
+  function startPlay() {
+    const player = new Vimeo.Player(iframe);
+    player.play();
+    overlay.classList.add('hidden');
+  }
+
+  overlay.addEventListener('click', startPlay);
+})();
 
 // ===== FAQ =====
 function toggleFAQ(btn) {
