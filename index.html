@@ -1318,32 +1318,21 @@ section {
     </div>
 
     <div class="video-wrapper">
-      <div class="video-aspect">
-        <!-- Vimeo埋め込み（VIDEO_IDを実際のIDに差し替えてください） -->
-        <div class="video-placeholder" id="video-placeholder" style="display:none">
-          <div class="play-icon-big">▶</div>
-          <p>動画準備中</p>
-          <p style="font-size:12px; opacity:0.6;">VIDEO_ID を設定するとここに表示されます</p>
+      <div class="video-aspect" id="video-aspect-container">
+        <!-- 再生ボタン押下前はサムネイルと再生ボタンのみ表示 -->
+        <div id="video-thumbnail" style="position:absolute;top:0;left:0;width:100%;height:100%;background:#0a1535;display:flex;align-items:center;justify-content:center;">
+          <img src="https://vumbnail.com/1171421337.jpg" alt="動画サムネイル" style="width:100%;height:100%;object-fit:cover;opacity:0.7;" onerror="this.style.display='none'">
         </div>
-        <iframe
-          id="vimeo-player"
-          src="https://player.vimeo.com/video/1171421337?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=0&amp;loop=0"
-          frameborder="0"
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          style="position:absolute;top:0;left:0;width:100%;height:100%;"
-          title="アイトレ　Lv1">
-        </iframe>
-        <script src="https://player.vimeo.com/api/player.js"></script>
-      </div>
-      <!-- 中央オーバーレイ再生ボタン（iframeの外に配置） -->
-      <div id="video-overlay" class="video-overlay">
-        <button id="play-btn" class="play-btn" aria-label="動画を再生">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="40" r="38" stroke="rgba(255,255,255,0.8)" stroke-width="3" fill="rgba(0,0,0,0.4)"/>
-            <polygon points="32,22 32,58 60,40" fill="rgba(255,255,255,0.9)"/>
-          </svg>
-        </button>
+        <!-- 中央オーバーレイ再生ボタン -->
+        <div id="video-overlay" class="video-overlay">
+          <button id="play-btn" class="play-btn" aria-label="動画を再生">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="38" stroke="rgba(255,255,255,0.8)" stroke-width="3" fill="rgba(0,0,0,0.4)"/>
+              <polygon points="32,22 32,58 60,40" fill="rgba(255,255,255,0.9)"/>
+            </svg>
+          </button>
+        </div>
+        <!-- iframeは再生ボタンクリック時に動的に生成される -->
       </div>
     </div>
 
@@ -1648,14 +1637,34 @@ revealEls.forEach(el => observer.observe(el));
 // ===== VIDEO OVERLAY PLAY =====
 (function() {
   const overlay = document.getElementById('video-overlay');
-  const playBtn = document.getElementById('play-btn');
-  const iframe = document.getElementById('vimeo-player');
-  if (!overlay || !iframe) return;
+  const container = document.getElementById('video-aspect-container');
+  const thumbnail = document.getElementById('video-thumbnail');
+  if (!overlay || !container) return;
+
+  let playerLoaded = false;
 
   function startPlay() {
-    const player = new Vimeo.Player(iframe);
-    player.play();
+    if (playerLoaded) return;
+    playerLoaded = true;
+
+    // iframeを動的に生成（autoplay=1で即再生）
+    const iframe = document.createElement('iframe');
+    iframe.id = 'vimeo-player';
+    iframe.src = 'https://player.vimeo.com/video/1171421337?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=0';
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+    iframe.title = 'アイトレ Lv1';
+    container.appendChild(iframe);
+
+    // サムネイルとオーバーレイをフェードアウト
     overlay.classList.add('hidden');
+    if (thumbnail) {
+      thumbnail.style.transition = 'opacity 0.4s ease';
+      thumbnail.style.opacity = '0';
+      setTimeout(function() { thumbnail.style.display = 'none'; }, 400);
+    }
   }
 
   overlay.addEventListener('click', startPlay);
